@@ -1,11 +1,16 @@
 'use client'
 
 import React, { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+
+// interface Props {
+//   updateData: () => void
+// }
 
 interface State {
   title: string
   description: string
-  path: string | File
+  img: string | File
   order: number
 }
 
@@ -13,23 +18,29 @@ const FromCreateItem = () => {
   const [formValues, setFormValues] = useState<State>({
     title: '',
     description: '',
-    path: '',
+    img: '',
     order: 0
   })
 
   const fileInput = useRef<HTMLInputElement | null>(null)
+  const router = useRouter()
 
-  function formHandler(e: React.FormEvent) {
+  async function formHandler(e: React.FormEvent) {
     e.preventDefault()
     const data = new FormData()
 
     data.append('title', formValues.title)
     data.append('description', formValues.description)
-    data.append('path', formValues.path)
+    data.append('img', formValues.img)
     data.append('order', formValues.order.toString())
 
-    // console.log("@fromValues", formValues);
-    // console.log("@data", data);
+    const res = await fetch('http://localhost:5000/api/photos', {
+      method: 'POST',
+      body: data,
+      credentials: 'include'
+    })
+
+    const resData = await res.json()
 
     // if success
     if (fileInput.current) {
@@ -39,18 +50,21 @@ const FromCreateItem = () => {
       title: '',
       description: '',
       order: 0,
-      path: ''
+      img: ''
     }))
+
   }
 
   function changeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files ? e.target.files[0] : ''
-    setFormValues(curr => ({ ...curr, path: file }))
+    setFormValues(curr => ({ ...curr, img: file }))
   }
 
-  async function checkApiHandler() {
-    const res = await fetch('http://server/api') // TODO Разобраться с урлом
-    console.log('@Check res res', res.json())
+  async function checkApiHandler() { 
+    let res
+    res = await fetch('http://localhost:5000/api', { credentials: 'include' })
+    const data = await res.json()
+    console.log('@Check res data', data)
   }
 
   return (
@@ -108,14 +122,14 @@ const FromCreateItem = () => {
           placeholder="Номер"
         />
       </div>
-      <div className=' inline-flex space-x-2'>
+      <div className=" inline-flex space-x-2">
         <button
           type="submit"
           className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
         >
           Добавить
         </button>
-        <button onClick={checkApiHandler}>Check Api</button>
+        <button type='button' onClick={checkApiHandler}>Check Api</button>
       </div>
     </form>
   )

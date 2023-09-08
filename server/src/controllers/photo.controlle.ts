@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { Photo } from '../models/photo.model'
 import path from 'path'
+import { UploadedFile } from 'express-fileupload'
 
 interface PhotoRequestCreate {
   title: string
@@ -23,22 +24,26 @@ const create = async (
 ) => {
   try {
     const { title, description, order } = req.body
-    const reqFile = req.files
+    const files = req.files
+    const img = files && files.img && (files.img as UploadedFile)
 
-    console.log('@Create data', title, description, order, reqFile)
-    console.log('@Create path', path.resolve(__dirname, 'static'))
-
-    // const responseCreate = await Photo.create({
-    //   title,
-    //   description,
-    //   path,
-    //   order
-    // })
-    // return res.send({ message: '', data: responseCreate })
-    res.send({ message: 'Item is created' })
+    if (img) {
+      img.mv(path.resolve(path.resolve(), 'static', img.name))
+      const responseCreate = await Photo.create({
+        title,
+        description,
+        path: img.name,
+        order
+      })
+      res.status(201).json({ message: 'created', data: responseCreate })
+    } else {
+      res.status(400).json({ message: 'Добавьте изображение' })
+    }
   } catch (error) {
     console.log(error)
   }
 }
+
+const updateItem = async (req: Request, res: Response) => {}
 
 export { getAll, create }

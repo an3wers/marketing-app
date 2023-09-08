@@ -31,6 +31,7 @@ services:
       - 5000:5000
     depends_on:
       - db
+    restart: always  
   
   db:
     container_name: marketing_db
