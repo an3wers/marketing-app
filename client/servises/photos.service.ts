@@ -5,6 +5,15 @@ interface RequstUpdateReaction {
   reaction: 'like' | 'dislike'
 }
 
+interface RequstUpdate {
+  id: number
+  title: string
+  description: string
+  order: number
+  like_qty: number
+  dislike_qty: number
+}
+
 export interface PhotoItem {
   id: number
   title: string
@@ -40,8 +49,32 @@ export const updateReactionPhoto = async ({
   const res = await fetch(apiUrl, {
     credentials: 'include',
     method: 'PUT',
-    body: JSON.stringify({ id, reaction })
+    body: JSON.stringify({ id, reaction }) // Передавать id в параметрах
   })
   const resData = res.json()
+  return resData
+}
+
+export const updatePhoto = async (data: RequstUpdate) => {
+  const { id, ...otherData } = data
+  const res = await fetch(`${apiUrl}/${id}`, {
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(otherData)
+  })
+  const resData = await res.json()
+  return resData
+}
+
+export const removePhoto = async (id: number) => {
+  const res = await fetch(`${apiUrl}/${id}`, {
+    credentials: 'include',
+    method: 'DELETE'
+  })
+
+  const resData = await res.json()
   return resData
 }

@@ -26,7 +26,8 @@ server.get('/api', (req: Request, res: Response) => {
 const start = async (): Promise<void> => {
   try {
     await sequelize.authenticate()
-    await sequelize.sync({ force: true })
+    // await sequelize.sync({ force: true })
+    await sequelize.sync()
     server.listen(port, () => console.log(`Server started on port ${port}`))
   } catch (error) {
     console.log(error)

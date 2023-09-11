@@ -16,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <body className={inter.className}>
-        <div className="container mx-auto">{children}</div>
+        <div className="default-layout">{children}</div>
         <Navigation />
       </body>
     </html>

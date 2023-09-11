@@ -1,7 +1,6 @@
-'use client'
-
+import { PhotoItem } from '@/servises/photos.service'
 import React, { useState, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 
 // interface Props {
 //   updateData: () => void
@@ -14,7 +13,11 @@ interface State {
   order: number
 }
 
-const FromCreateItem = () => {
+interface Props {
+  onAddItem: (item: PhotoItem) => void
+}
+
+const FormCreateItem = ({ onAddItem }: Props) => {
   const [formValues, setFormValues] = useState<State>({
     title: '',
     description: '',
@@ -23,7 +26,7 @@ const FromCreateItem = () => {
   })
 
   const fileInput = useRef<HTMLInputElement | null>(null)
-  const router = useRouter()
+  // const router = useRouter()
 
   async function formHandler(e: React.FormEvent) {
     e.preventDefault()
@@ -41,8 +44,11 @@ const FromCreateItem = () => {
     })
 
     const resData = await res.json()
+    
+    if(resData?.message === 'created') {
+      onAddItem(resData.data)
+    }
 
-    // if success
     if (fileInput.current) {
       fileInput.current.value = ''
     }
@@ -135,4 +141,4 @@ const FromCreateItem = () => {
   )
 }
 
-export { FromCreateItem }
+export { FormCreateItem }

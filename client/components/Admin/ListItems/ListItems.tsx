@@ -1,34 +1,25 @@
-'use client'
-
 import { PhotoItem } from '@/servises/photos.service'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { ItemPreview } from '../ItemPreview/ItemPreview'
 
 interface Props {
   photos: PhotoItem[]
+  updateOrder: (id: number, order: number) => void
+  removeItem: (id: number) => void
 }
 
-const ListItems = ({ photos }: Props) => {
-  const [items, setItems] = useState(photos)
-
-  function updateItemOrder(id: number, order: number) {
-    setItems(curr => {
-      return curr.map(c => {
-        if (c.id === id) {
-          return { ...c, order }
-        }
-        {
-          return c
-        }
-      })
-    })
-  }
-
+const ListItems = ({ photos, updateOrder, removeItem }: Props) => {
   return (
-    <ul className=" max-w-4xl">
-      {photos.map(p => (
-        <ItemPreview updateOrder={updateItemOrder} key={p.id} item={p} />
-      ))}
+    <ul className="max-w-4xl">
+      {photos.length > 0 &&
+        photos.map(p => (
+          <ItemPreview
+            removeItem={removeItem}
+            updateOrder={updateOrder}
+            key={p.id}
+            item={p}
+          />
+        ))}
     </ul>
   )
 }

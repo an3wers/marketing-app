@@ -41,7 +41,7 @@ const Photo = sequelize.define<PhotoModel>('Photo', {
   },
   order: {
     type: DataTypes.INTEGER,
-    unique: true
+    // unique: true
   },
   like_qty: {
     type: DataTypes.INTEGER,
