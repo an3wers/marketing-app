@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useConfig } from '@/servises/config'
 import { PhotoItem } from '@/servises/photos.service'
 import React, { useState, useRef } from 'react'
 // import { useRouter } from 'next/navigation'
@@ -16,6 +18,8 @@ interface State {
 interface Props {
   onAddItem: (item: PhotoItem) => void
 }
+
+const { baseApi } = useConfig()
 
 const FormCreateItem = ({ onAddItem }: Props) => {
   const [formValues, setFormValues] = useState<State>({
@@ -37,15 +41,15 @@ const FormCreateItem = ({ onAddItem }: Props) => {
     data.append('img', formValues.img)
     data.append('order', formValues.order.toString())
 
-    const res = await fetch('http://localhost:5000/api/photos', {
+    const res = await fetch(`${baseApi}/photos`, {
       method: 'POST',
       body: data,
       credentials: 'include'
     })
 
     const resData = await res.json()
-    
-    if(resData?.message === 'created') {
+
+    if (resData?.message === 'created') {
       onAddItem(resData.data)
     }
 
@@ -58,7 +62,6 @@ const FormCreateItem = ({ onAddItem }: Props) => {
       order: 0,
       img: ''
     }))
-
   }
 
   function changeFileHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -66,9 +69,9 @@ const FormCreateItem = ({ onAddItem }: Props) => {
     setFormValues(curr => ({ ...curr, img: file }))
   }
 
-  async function checkApiHandler() { 
+  async function checkApiHandler() {
     let res
-    res = await fetch('http://localhost:5000/api', { credentials: 'include' })
+    res = await fetch(baseApi, { credentials: 'include' })
     const data = await res.json()
     console.log('@Check res data', data)
   }
@@ -135,7 +138,9 @@ const FormCreateItem = ({ onAddItem }: Props) => {
         >
           Добавить
         </button>
-        <button type='button' onClick={checkApiHandler}>Check Api</button>
+        <button type="button" onClick={checkApiHandler}>
+          Check Api
+        </button>
       </div>
     </form>
   )
