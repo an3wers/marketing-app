@@ -3,7 +3,7 @@ const useConfig = () => {
   let baseUrl: string = ''
 
   if (process.env.NODE_ENV === 'production') {
-    baseUrl = 'https://humor.santur.ru/'
+    baseUrl = 'https://humor.santur.ru'
     baseApi =
       typeof window === 'undefined'
         ? 'http://server:5000/api'
