@@ -12,7 +12,7 @@ const useConfig = () => {
     baseUrl = 'http://localhost:5000'
     baseApi =
       typeof window === 'undefined'
-        ? 'http://server:5000/api'
+        ? 'http://localhost:5000/api' //'http://server:5000/api' // if docker 
         : 'http://localhost:5000/api'
   }
 

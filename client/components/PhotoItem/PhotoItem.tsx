@@ -135,6 +135,7 @@ const PhotoItem = ({ item }: Props) => {
 
   return (
     <div className="relative">
+      {/* border-2 border-white/10 */}
       <div className="mb-2">
         <img
           className=" w-full object-contain"
@@ -142,20 +143,22 @@ const PhotoItem = ({ item }: Props) => {
           alt={itemLocal.path}
         />
       </div>
-      <div className=" flex space-x-4 justify-center">
+      <div className=" flex space-x-3 justify-center">
         <button
           onClick={dislikeHandler}
-          disabled={itemLS.isDislike}
-          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-40"
+          disabled={itemLS.isDislike || itemLS.isLike}
+          className="text-gray-900 inline-flex items-center space-x-2 bg-white/25 border border-gray-300 focus:outline-none hover:bg-white/40 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-50"
         >
-          Dislike <span>{itemLocal.dislike_qty}</span>
+          <img src="/images/ThumbsDown.png" alt="ThumbsDown.png" />
+          <span>{itemLocal.dislike_qty}</span>
         </button>
         <button
           onClick={likeHandler}
-          disabled={itemLS.isLike}
-          className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-40"
+          disabled={itemLS.isDislike || itemLS.isLike}
+          className="text-gray-900 inline-flex items-center space-x-2 bg-white/25 border border-gray-300 focus:outline-none hover:bg-white/40 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-50"
         >
-          Like <span>{itemLocal.like_qty}</span>
+          <img src="/images/ThumbsUp.png" alt="ThumbsUp.png" />
+          <span>{itemLocal.like_qty}</span>
         </button>
       </div>
     </div>
