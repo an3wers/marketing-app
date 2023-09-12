@@ -1,15 +1,19 @@
-FROM node:18-alpine
-
+# Build Stage
+FROM node:18-alpine AS BUILD_IMAGE
 WORKDIR /var/www/client
-
 COPY package*.json ./
-
-RUN npm i -g next
-
-RUN npm install
-
+RUN npm ci
 COPY . .
-
 RUN npm run build
 
-CMD [ "npm", "run", "start" ]
+
+# Production Stage
+FROM node:18-alpine AS PRODUCTION_STAGE
+WORKDIR /var/www/client
+COPY --from=BUILD_IMAGE /var/www/client/package*.json ./
+COPY --from=BUILD_IMAGE /var/www/client/.next ./.next
+COPY --from=BUILD_IMAGE /var/www/client/public ./public
+COPY --from=BUILD_IMAGE /var/www/client/node_modules ./node_modules
+ENV NODE_ENV=production
+EXPOSE 3000
+CMD ["npm", "start"]

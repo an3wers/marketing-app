@@ -8,8 +8,6 @@ services:
       context: ./client
       dockerfile: Dockerfile.prod
     working_dir: /var/www/client
-    volumes:
-      - ./client:/var/www/client
     ports:
       - 3005:3000
     depends_on:
@@ -21,8 +19,6 @@ services:
       context: ./server
       dockerfile: Dockerfile.prod
     working_dir: /var/www/server
-    volumes:
-      - ./server:/var/www/server
     expose:
       - 5000
     env_file:
@@ -37,7 +33,7 @@ services:
     container_name: marketing_db
     image: postgres:14-alpine
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     env_file:
       - ./server/.env
     expose:
@@ -53,10 +49,15 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
-      - ./pg-admin-data:/var/lib/pgadmin    
+      - pg-admin-data:/var/lib/pgadmin    
     expose:
       - '80'
     ports:
       - '8080:80'
     restart: always
+
+volumes:
+  pg-data:
+  pg-admin-data:
+
     
