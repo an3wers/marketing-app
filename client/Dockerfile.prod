@@ -4,6 +4,8 @@ WORKDIR /var/www/client
 
 COPY package*.json ./
 
+RUN npm i -g next
+
 RUN npm install
 
 COPY . .
