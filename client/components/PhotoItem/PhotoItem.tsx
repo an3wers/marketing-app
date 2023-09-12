@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 'use client'
+import { useConfig } from '@/servises/config'
 import { PhotoItem, updatePhoto } from '@/servises/photos.service'
 import { useEffect, useState } from 'react'
 
@@ -16,6 +18,7 @@ interface ItemLS {
 type ItemsFromLs = Record<string, { isLike: boolean; isDislike: boolean }>
 
 const LS_KEY = 'mrkt_items_santur'
+const { baseUrl } = useConfig()
 
 const PhotoItem = ({ item }: Props) => {
   const [itemLocal, setItem] = useState(item)
@@ -135,7 +138,7 @@ const PhotoItem = ({ item }: Props) => {
       <div className="mb-2">
         <img
           className=" w-full object-contain"
-          src={`http://localhost:5000/static/${itemLocal.path}`}
+          src={`${baseUrl}/static/${itemLocal.path}`}
           alt={itemLocal.path}
         />
       </div>

@@ -1,7 +1,8 @@
-const apiUrl =
-  typeof window === 'undefined'
-    ? 'http://server:5000/api/photos'
-    : 'http://localhost:5000/api/photos'
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useConfig } from "./config"
+
+const { baseApi } = useConfig()
+const apiUrl = `${baseApi}/photos`
 
 interface RequstUpdateReaction {
   id: number

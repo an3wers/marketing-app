@@ -1,6 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
+import { useConfig } from '@/servises/config'
 import { PhotoItem, removePhoto, updatePhoto } from '@/servises/photos.service'
 import { useState } from 'react'
 
@@ -9,6 +11,8 @@ interface Props {
   updateOrder: (id: number, order: number) => void
   removeItem: (id: number) => void
 }
+
+const { baseUrl } = useConfig()
 
 const ItemPreview = ({ item, updateOrder, removeItem }: Props) => {
   const [localItem, setLocalItem] = useState(item)
@@ -40,7 +44,7 @@ const ItemPreview = ({ item, updateOrder, removeItem }: Props) => {
         <img
           className="w-32 object-contain"
           alt={localItem.path}
-          src={`http://localhost:5000/static/${localItem.path}`}
+          src={`${baseUrl}/static/${localItem.path}`}
         />
       </div>
       <div className=" flex flex-row items-baseline space-x-1">
