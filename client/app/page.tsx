@@ -18,7 +18,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col bg-zinc-800">
       <div className="container mx-auto">
         <div className=" flex flex-col space-y-12">
-          {data.length > 0 &&
+          {!!data && data.length > 0 &&
             data.map(item => <PhotoItemComp key={item.id} item={item} />)}
         </div>
       </div>

@@ -11,7 +11,7 @@ interface Props {
 const ListItems = ({ photos, updateOrder, removeItem }: Props) => {
   return (
     <ul className="max-w-4xl">
-      {photos.length > 0 &&
+      {!!photos && photos.length > 0 &&
         photos.map(p => (
           <ItemPreview
             removeItem={removeItem}

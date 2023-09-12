@@ -13,14 +13,26 @@ const port = process.env.PORT || 5000
 
 server.use(express.json())
 server.use(fileUpload({}))
-server.use(cors({ origin: ['http://localhost:3005', 'http://localhost:3000'], credentials: true }))
+server.use(
+  cors({
+    origin: [
+      'http://localhost:3005',
+      'http://localhost:3000',
+      'http://127.0.0.1:3000',
+      'http://127.0.0.1:3005',
+      'https://humor.santur.ru'
+    ],
+    credentials: true
+  })
+)
+// server.use(cors())
 server.use('/static', express.static(path.resolve(path.resolve(), 'static')))
 server.use('/api', router)
 
 // console.log('@path to static', path.resolve(__dirname, 'static'))
 
 server.get('/api', (req: Request, res: Response) => {
-  res.status(200).json({message: 'Hello api'})
+  res.status(200).json({ message: 'Hello api' })
 })
 
 const start = async (): Promise<void> => {

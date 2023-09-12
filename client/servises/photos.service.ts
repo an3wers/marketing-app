@@ -1,4 +1,7 @@
-const apiUrl = 'http://localhost:5000/api/photos'
+const apiUrl =
+  typeof window === 'undefined'
+    ? 'http://server:5000/api/photos'
+    : 'http://localhost:5000/api/photos'
 
 interface RequstUpdateReaction {
   id: number
