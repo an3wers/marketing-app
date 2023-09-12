@@ -40,7 +40,7 @@ const ItemPreview = ({ item, updateOrder, removeItem }: Props) => {
         <img
           className="w-32 object-contain"
           alt={localItem.path}
-          src={`http://localhost:5000/${localItem.path}`}
+          src={`http://localhost:5000/static/${localItem.path}`}
         />
       </div>
       <div className=" flex flex-row items-baseline space-x-1">

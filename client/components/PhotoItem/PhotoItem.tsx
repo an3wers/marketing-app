@@ -135,7 +135,7 @@ const PhotoItem = ({ item }: Props) => {
       <div className="mb-2">
         <img
           className=" w-full object-contain"
-          src={`http://localhost:5000/${itemLocal.path}`}
+          src={`http://localhost:5000/static/${itemLocal.path}`}
           alt={itemLocal.path}
         />
       </div>
