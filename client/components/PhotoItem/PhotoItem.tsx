@@ -145,20 +145,20 @@ const PhotoItem = ({ item }: Props) => {
       </div>
       <div className=" flex space-x-3 justify-center">
         <button
-          onClick={dislikeHandler}
-          disabled={itemLS.isDislike || itemLS.isLike}
-          className="text-gray-900 inline-flex items-center space-x-2 bg-white/25 border border-gray-300 focus:outline-none hover:bg-white/40 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-50"
-        >
-          <img src="/images/ThumbsDown.png" alt="ThumbsDown.png" />
-          <span>{itemLocal.dislike_qty}</span>
-        </button>
-        <button
           onClick={likeHandler}
           disabled={itemLS.isDislike || itemLS.isLike}
           className="text-gray-900 inline-flex items-center space-x-2 bg-white/25 border border-gray-300 focus:outline-none hover:bg-white/40 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-50"
         >
           <img src="/images/ThumbsUp.png" alt="ThumbsUp.png" />
           <span>{itemLocal.like_qty}</span>
+        </button>
+        <button
+          onClick={dislikeHandler}
+          disabled={itemLS.isDislike || itemLS.isLike}
+          className="text-gray-900 inline-flex items-center space-x-2 bg-white/25 border border-gray-300 focus:outline-none hover:bg-white/40 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-base px-5 py-3 disabled:opacity-50"
+        >
+          <img src="/images/ThumbsDown.png" alt="ThumbsDown.png" />
+          <span>{itemLocal.dislike_qty}</span>
         </button>
       </div>
     </div>
