@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Photo } from '../models/photo.model'
 import path from 'path'
 import { UploadedFile } from 'express-fileupload'
+import fs from 'fs'
 import fsPromises from 'fs/promises'
 
 interface PhotoRequestCreate {
@@ -42,14 +43,21 @@ const createItem = async (
     const img = files && files.img && (files.img as UploadedFile)
 
     if (img) {
-      img.mv(path.resolve(path.resolve(), 'static', img.name))
-      const responseCreate = await Photo.create({
-        title,
-        description,
-        path: img.name,
-        order
-      })
-      res.status(201).json({ message: 'created', data: responseCreate })
+      const imgPath = path.resolve(path.resolve(), 'static', img.name)
+
+      if (fs.existsSync(imgPath)) {
+        throw new Error('Файл уже существует')
+      } else {
+        img.mv(imgPath)
+        const responseCreate = await Photo.create({
+          title,
+          description,
+          path: img.name,
+          order
+        })
+
+        res.status(201).json({ message: 'created', data: responseCreate })
+      }
     } else {
       res.status(400).json({ message: 'Добавьте изображение' })
     }

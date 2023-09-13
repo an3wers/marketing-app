@@ -136,7 +136,7 @@ const PhotoItem = ({ item }: Props) => {
   return (
     <div className="relative">
       {/* border-2 border-white/10 */}
-      <div className="mb-2">
+      <div className="mb-4">
         <img
           className=" w-full object-contain"
           src={`${baseUrl}/static/${itemLocal.path}`}
