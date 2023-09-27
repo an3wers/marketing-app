@@ -65,7 +65,6 @@ const PhotoItem = ({ item }: Props) => {
 
   useEffect(() => {
     const itemsFromLS: ItemsFromLs | null = getItemsFromLS(LS_KEY)
-    console.log('@itemsFromLS', itemsFromLS)
     if (itemsFromLS) {
       const item = itemsFromLS[itemLocal.id]
 

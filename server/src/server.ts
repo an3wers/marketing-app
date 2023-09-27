@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express'
 import * as dotenv from 'dotenv'
 import { sequelize } from './db/db'
-import { router } from './routes/photo.route'
+import { router as photoRoutes } from './routes/photo.route'
+import { router as reactionRoutes } from './routes/reaction.route'
 import path from 'path'
 import fileUpload from 'express-fileupload'
 import cors from 'cors'
@@ -25,11 +26,9 @@ server.use(
     credentials: true
   })
 )
-// server.use(cors())
 server.use('/static', express.static(path.resolve(path.resolve(), 'static')))
-server.use('/api', router)
-
-// console.log('@path to static', path.resolve(__dirname, 'static'))
+server.use('/api', photoRoutes)
+server.use('/api', reactionRoutes)
 
 server.get('/api', (req: Request, res: Response) => {
   res.status(200).json({ message: 'Hello api' })

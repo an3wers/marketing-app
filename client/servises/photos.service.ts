@@ -33,6 +33,9 @@ export interface PhotoItem {
 export const createPhoto = async (data: FormData) => {
   const res = await fetch(apiUrl, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     credentials: 'include',
     body: data
   })
@@ -52,6 +55,9 @@ export const updateReactionPhoto = async ({
 }: RequstUpdateReaction) => {
   const res = await fetch(apiUrl, {
     credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     method: 'PUT',
     body: JSON.stringify({ id, reaction }) // Передавать id в параметрах
   })

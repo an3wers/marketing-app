@@ -4,6 +4,7 @@ import path from 'path'
 import { UploadedFile } from 'express-fileupload'
 import fs from 'fs'
 import fsPromises from 'fs/promises'
+import { v4 as uuidv4 } from 'uuid'
 
 interface PhotoRequestCreate {
   title: string
@@ -41,9 +42,10 @@ const createItem = async (
     const { title, description, order } = req.body
     const files = req.files
     const img = files && files.img && (files.img as UploadedFile)
-
     if (img) {
-      const imgPath = path.resolve(path.resolve(), 'static', img.name)
+      const exct = img.name.match(/\.[0-9a-z]+$/i)![0]
+      const filename = uuidv4() + exct
+      const imgPath = path.resolve(path.resolve(), 'static', filename)
 
       if (fs.existsSync(imgPath)) {
         throw new Error('Файл уже существует')
@@ -52,7 +54,7 @@ const createItem = async (
         const responseCreate = await Photo.create({
           title,
           description,
-          path: img.name,
+          path: filename,
           order
         })
 
