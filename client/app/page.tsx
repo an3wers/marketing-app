@@ -1,6 +1,7 @@
 // import Image from 'next/image'
 
 import { FirstScreen } from '@/components/FirstScreen/FirstScreen'
+import { FromEditor } from '@/components/FromEditor/FromEditor'
 import { FunnyStoriesHeader } from '@/components/FunnyStoriesHeader/FunnyStoriesHeader'
 import { GuessWho } from '@/components/GuessWho/GuessWho'
 import { HighFive } from '@/components/HighFive/HighFive'
@@ -24,6 +25,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col">
       <div className="container mx-auto space-y-10 md:space-y-16 xl:space-y-24 py-16">
         <FirstScreen />
+        <FromEditor />
         <div className=" flex flex-col space-y-10 md:space-y-16 xl:space-y-24 py-16">
           <FunnyStoriesHeader />
           {!!data &&
