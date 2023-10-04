@@ -114,7 +114,7 @@ const data = [
   },
   {
     id: 15,
-    path: '/images/7-min.png',
+    path: '/images/7-min_.png',
     options: ['Игорь Романович', 'Игорь Романович', 'Игорь Романович'],
     correct_option: 'Игорь Романович'
   },
